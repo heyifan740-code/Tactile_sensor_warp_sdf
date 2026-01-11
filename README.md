@@ -1,25 +1,25 @@
-# IsaacLab Warp SDF Tactile + Replay（Overlay 代码包）
+# IsaacLab Warp SDF Tactile + Replay (Overlay)
 
-这个仓库只包含两块核心代码，并保持 IsaacLab 的目录结构，方便别人快速定位：
+This repository contains only the two core pieces of code below, while keeping the IsaacLab directory layout so it’s easy to locate:
 
-- Warp 触觉传感器：`source/isaaclab/isaaclab/sensors/warp_sdf_tactile/`
-- Replay 脚本：`source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py`
+- Warp tactile sensor: `source/isaaclab/isaaclab/sensors/warp_sdf_tactile/`
+- Replay script: `source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py`
 
-它不是完整 IsaacLab（不会包含 Isaac Sim / IsaacLab 本体）。正确用法是：把这里的文件“覆盖/overlay”进你自己的 IsaacLab 工程里跑。
+This is NOT a full IsaacLab distribution (it does not include Isaac Sim / IsaacLab itself). The intended usage is to overlay/copy these files into your own IsaacLab checkout.
 
-## 0) 你需要准备什么（Prerequisites）
+## 0) Prerequisites
 
-- 一个可运行的 IsaacLab（对应你机器上的 Isaac Sim / Kit 环境）
-- vt-refine 的数据与 URDF（本仓库不提供）：
+- A working IsaacLab checkout (with Isaac Sim / Kit available on your machine)
+- vt-refine assets (NOT included in this repo):
   - `train.npz`
-  - `normalization.pth`（可选，但推荐）
+  - `normalization.pth` (optional but recommended)
   - `aloha_tactile.urdf`
 
-## 1) 安装（Overlay 到 IsaacLab）
+## 1) Install (Overlay into IsaacLab)
 
-假设你已经有一个 IsaacLab 目录：`/path/to/IsaacLab`。
+Assume you already have an IsaacLab folder at: `/path/to/IsaacLab`.
 
-在本仓库根目录执行：
+From this repo root:
 
 ```bash
 rsync -a --relative \
@@ -28,25 +28,25 @@ rsync -a --relative \
   /path/to/IsaacLab/
 ```
 
-## 2) 最短运行命令（Inside IsaacLab）
+## 2) Minimal run command (Inside IsaacLab)
 
-进入 IsaacLab 根目录后：
+In the IsaacLab repo root:
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py
 ```
 
-说明：脚本里已经设置了一套“可直接跑”的默认参数；你的环境不同的话，用下面的参数覆盖即可。
+Note: the replay script has convenient defaults; override them via CLI flags as needed.
 
-想看全部参数：
+To see all flags:
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py --help
 ```
 
-## 3) 常用命令示例（复制即用）
+## 3) Common command examples
 
-### 指定 vt-refine 数据与 URDF（最常用）
+### Specify vt-refine dataset and URDF (most common)
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py \
@@ -55,7 +55,7 @@ rsync -a --relative \
   --urdf_path ~/workspace/vt-refine/easysim-envs/src/easysim_envs/assets/urdf/aloha_description/aloha_tactile.urdf
 ```
 
-### 指定 target mesh（Plug/Socket）
+### Specify target meshes (Plug/Socket)
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py \
@@ -64,7 +64,7 @@ rsync -a --relative \
   --right_arm_target_mesh_prim /World/Plug
 ```
 
-### 插入/碰撞近似相关（vt-refine plug/socket）
+### Insertion / collision approximation (vt-refine plug/socket)
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py \
@@ -73,14 +73,14 @@ rsync -a --relative \
   --socket_collider_type convex_decomposition
 ```
 
-如果你想让 Socket 静态（更稳定的三角网格碰撞），Plug 仍为动态：
+If you want the Socket to be static (more stable triangle-mesh collision), while keeping Plug dynamic:
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py \
   --socket_fix_base --no-plug_fix_base
 ```
 
-### 触觉 patch 放置（常用）
+### Tactile patch placement (common)
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py \
@@ -88,7 +88,7 @@ rsync -a --relative \
   --normal_offset 0.0036
 ```
 
-### 可视化（taxels + 2D 像素窗）
+### Visualization (taxels + 2D pixel window)
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py \
@@ -97,36 +97,36 @@ rsync -a --relative \
   --pixel_vis_gamma 2.6
 ```
 
-## 4) 参数速查（Cheatsheet）
+## 4) Flag cheatsheet
 
-### 数据回放
+### Replay
 
-- `--dataset_npz PATH`：vt-refine 的 `train.npz`
-- `--normalization_pth PATH`：vt-refine 的 `normalization.pth`（可选）
-- `--episode_idx N`：第几个 episode
-- `--replay_key joint_states|actions`：回放字段
+- `--dataset_npz PATH`: vt-refine `train.npz`
+- `--normalization_pth PATH`: vt-refine `normalization.pth` (optional)
+- `--episode_idx N`: which episode to replay
+- `--replay_key joint_states|actions`: which field to replay
 
-### Robot / URDF 转换
+### Robot / URDF conversion
 
-- `--urdf_path PATH`：ALOHA tactile URDF
+- `--urdf_path PATH`: ALOHA tactile URDF
 - `--force_urdf_conversion` / `--no-force_urdf_conversion`
 - `--urdf_no_merge_fixed_joints` / `--no-urdf_no_merge_fixed_joints`
 
-### Target mesh（用于 Warp mesh SDF 查询）
+### Target mesh (Warp mesh SDF query)
 
 - `--target_mesh_kind existing|cuboid|capsule|cylinder`
 - `--left_arm_target_mesh_prim PRIM_PATH`
 - `--right_arm_target_mesh_prim PRIM_PATH`
 
-### vt-refine plug/socket 生成与碰撞
+### vt-refine plug/socket spawn & collision
 
-- `--force_objects_urdf_conversion` / `--no-force_objects_urdf_conversion`：强制重转（碰撞近似更新时必用）
+- `--force_objects_urdf_conversion` / `--no-force_objects_urdf_conversion`: force reconversion (required when changing collision approximation)
 - `--plug_collider_type convex_hull|convex_decomposition`
 - `--socket_collider_type convex_hull|convex_decomposition`
-- `--plug_fix_base/--no-plug_fix_base`、`--socket_fix_base/--no-socket_fix_base`
-- `--plug_scale FLOAT`、`--socket_scale FLOAT`
+- `--plug_fix_base/--no-plug_fix_base`, `--socket_fix_base/--no-socket_fix_base`
+- `--plug_scale FLOAT`, `--socket_scale FLOAT`
 
-### 触觉 taxel / patch
+### Tactile taxels / patch
 
 - `--num_rows` / `--num_cols`
 - `--point_distance`
@@ -134,42 +134,43 @@ rsync -a --relative \
 - `--patch_offset_quat w x y z`
 - `--normal_offset`
 
-### 可视化 / 调试
+### Visualization / debugging
 
 - `--debug_vis` / `--no-debug_vis`
 - `--show_all_taxels` / `--no-show_all_taxels`
 - `--pixel_vis` / `--no-pixel_vis`
-- `--pixel_vis_gamma`、`--pixel_vis_fn_threshold`
-- `--usd_writeback_targets` / `--no-usd_writeback_targets`：GUI gizmo/属性面板跟随 PhysX（默认开）
+- `--pixel_vis_gamma`, `--pixel_vis_fn_threshold`
+- `--usd_writeback_targets` / `--no-usd_writeback_targets`: write PhysX target pose back to USD Xform (so GUI gizmo/property panel follows)
 
-### 回放速度
+### Playback pacing
 
-- `--steps_per_frame N`：每帧重复 N 次 sim step（越大越慢）
+- `--steps_per_frame N`: repeat each dataset frame for N sim steps (larger = slower)
 - `--sleep_s SEC`
 
-## 5) 调试（Debugging）
+## 5) Debugging
 
-建议在 IsaacLab 工程里调试（overlay 后）。
+Recommended: debug inside your IsaacLab checkout (after overlay).
 
-### VS Code 断点
+### VS Code breakpoints
 
-- 打断点的常见文件：
-  - `source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py`
-  - `source/isaaclab/isaaclab/sensors/warp_sdf_tactile/warp_sdf_tactile_sensor.py`
+Common files to place breakpoints in:
 
-如果 VS Code 断点没停（Kit 嵌入 Python 时可能出现），用下面方式一定能停。
+- `source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py`
+- `source/isaaclab/isaaclab/sensors/warp_sdf_tactile/warp_sdf_tactile_sensor.py`
+
+If VS Code breakpoints do not trigger (Kit embeds Python), use `breakpoint()` / `pdb` below.
 
 ### `breakpoint()` / `pdb`
 
-在你想停的位置加：
+Add this line where you want to stop:
 
 ```python
-breakpoint()  # 或：import pdb; pdb.set_trace()
+breakpoint()  # or: import pdb; pdb.set_trace()
 ```
 
-然后正常运行，终端会进入调试交互。
+Then run normally; the debugger prompt appears in the terminal.
 
-## 6) 常见问题（Troubleshooting）
+## 6) Troubleshooting
 
-- 画面里目标物体在动，但 gizmo/属性不跟：确认没有加 `--no-usd_writeback_targets`
-- 插不进去/像“孔被填实”：确保用了 `--force_objects_urdf_conversion`，并把 collider type 设为 `convex_decomposition`
+- Target object moves physically but the GUI gizmo/property panel does not: make sure you did NOT pass `--no-usd_writeback_targets`.
+- Plug cannot insert / looks like the cavity is “filled”: use `--force_objects_urdf_conversion` and set collider types to `convex_decomposition`.
