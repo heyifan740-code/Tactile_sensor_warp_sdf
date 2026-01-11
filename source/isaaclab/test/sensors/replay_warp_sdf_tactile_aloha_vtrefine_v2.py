@@ -5,6 +5,8 @@
 
 """Replay vt-refine ALOHA trajectories with WarpSdfTactileSensor.
 
+Replay task number : aloha-00007
+
 Loads a vt-refine episode, spawns the scene, attaches tactile sensors, and (optionally) shows a 2x2 `fn` panel.
 
 Tip: If `--normalization_pth` is omitted, we try `<dataset_dir>/normalization.pth`.
