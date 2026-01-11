@@ -50,14 +50,9 @@ To see all flags:
 https://github.com/user-attachments/assets/01c822b4-ac39-4e07-87d3-ea44301fced4
 
 
-Suggested location in this repo:
 
 - `media/aloha-00007_replay_demo.mp4`
 
-Note: GitHub has file size limits; for large videos, prefer one of:
-
-- GitHub Releases (attach the mp4 and link it here)
-- Git LFS (track `*.mp4` and commit via LFS)
 
 ## 3) Common command examples
 
@@ -88,7 +83,7 @@ Note: GitHub has file size limits; for large videos, prefer one of:
   --socket_collider_type convex_decomposition
 ```
 
-If you want the Socket to be static (more stable triangle-mesh collision), while keeping Plug dynamic:
+Socket to be static (more stable triangle-mesh collision), while keeping Plug dynamic:
 
 ```bash
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py \
@@ -162,30 +157,8 @@ If you want the Socket to be static (more stable triangle-mesh collision), while
 - `--steps_per_frame N`: repeat each dataset frame for N sim steps (larger = slower)
 - `--sleep_s SEC`
 
-## 5) Debugging
 
-Recommended: debug inside your IsaacLab checkout (after overlay).
-
-### VS Code breakpoints
-
-Common files to place breakpoints in:
-
-- `source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py`
-- `source/isaaclab/isaaclab/sensors/warp_sdf_tactile/warp_sdf_tactile_sensor.py`
-
-If VS Code breakpoints do not trigger (Kit embeds Python), use `breakpoint()` / `pdb` below.
-
-### `breakpoint()` / `pdb`
-
-Add this line where you want to stop:
-
-```python
-breakpoint()  # or: import pdb; pdb.set_trace()
-```
-
-Then run normally; the debugger prompt appears in the terminal.
-
-## 6) Troubleshooting
+## 5) Troubleshooting
 
 - Target object moves physically but the GUI gizmo/property panel does not: make sure you did NOT pass `--no-usd_writeback_targets`.
 - Plug cannot insert / looks like the cavity is “filled”: use `--force_objects_urdf_conversion` and set collider types to `convex_decomposition`.
