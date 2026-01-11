@@ -45,18 +45,12 @@ class WarpSdfTactileSensorCfg(SensorBaseCfg):
     box_quat_w: tuple[float, float, float, float] = (1.0, 0.0, 0.0, 0.0)
     box_half_extents: tuple[float, float, float] = (0.04, 0.04, 0.04)
 
-    # Optional target mesh SDF: distance to an arbitrary USD Mesh.
     # If `target_mesh_prim_path` is provided, the sensor will query distance to the mesh surface using Warp.
-    # Notes:
     # - Signed distance requires a watertight mesh (Warp provides `sign` for closed meshes).
-    # - If `mesh_use_signed_distance` is False, the sensor uses unsigned distance and a small
-    #   `mesh_shell_thickness` to emulate penetration.
+    # - If `mesh_use_signed_distance` is False, the sensor uses unsigned distance and a small `mesh_shell_thickness` to emulate penetration.
     target_mesh_prim_path: str | None = None
     mesh_max_dist: float = 0.20
     mesh_use_signed_distance: bool = True
-    # How to compute signed distance for meshes.
-    # - "winding": uses Warp's `sign` output from `mesh_query_point` (requires watertight mesh)
-    # - "normal": uses the closest triangle normal (optionally smooth vertex normals) to sign the distance
     mesh_signed_distance_method: str = "winding"
     # When `mesh_signed_distance_method == "normal"`, use vertex-normal interpolation (Phong-like)
     # instead of flat triangle normals.
