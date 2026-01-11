@@ -46,6 +46,10 @@ To see all flags:
 
 ## Demo video (aloha-00007)
 
+
+https://github.com/user-attachments/assets/01c822b4-ac39-4e07-87d3-ea44301fced4
+
+
 Suggested location in this repo:
 
 - `media/aloha-00007_replay_demo.mp4`
