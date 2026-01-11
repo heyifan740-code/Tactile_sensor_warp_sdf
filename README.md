@@ -44,6 +44,17 @@ To see all flags:
 ./isaaclab.sh -p source/isaaclab/test/sensors/replay_warp_sdf_tactile_aloha_vtrefine_v2.py --help
 ```
 
+## Demo video (aloha-00007)
+
+Suggested location in this repo:
+
+- `media/aloha-00007_replay_demo.mp4`
+
+Note: GitHub has file size limits; for large videos, prefer one of:
+
+- GitHub Releases (attach the mp4 and link it here)
+- Git LFS (track `*.mp4` and commit via LFS)
+
 ## 3) Common command examples
 
 ### Specify vt-refine dataset and URDF (most common)
